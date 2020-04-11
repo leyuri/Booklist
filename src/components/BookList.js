@@ -23,9 +23,12 @@ export default function BookList() {
     return (
     <List component="nav" aria-label="main mailbox folders">
     {books.map(item => (
+        <div>
         <ListItem button>
             <ListItemText primary={item}/>
         </ListItem>
+        <Divider/>
+        </div>
     ))}
         
     </List>
