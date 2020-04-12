@@ -38,11 +38,14 @@ function BookDetail({book}) {
         title={book.title}
         subheader={book.subtitle}
       />
-      <CardMedia
-        className={classes.media}
-        image={book.img}
-      />
-
+      {
+        book.img && (
+            <CardMedia
+            className={classes.media}
+            image={book.img}
+          />
+        )
+      }
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
