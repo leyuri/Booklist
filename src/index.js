@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import reducer from './reducer.js'
+
+const store = createStore(reducer);
 
 ReactDOM.render(
+  <Provider store={store}>
+    {/* 리엑트에서 스토어를 다 사용할 수 있도록 가장 바깥에 넣어주는 것 */}
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,24 +9,17 @@ import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 
-export default function BookList() {
-    const books = [
-        'CODE (하드웨어와 소프트웨어에 숨어 있는 언어)',
-        '혼자 공부하는 파이썬 (파이썬 최신 버전 반영)',
-        '유튜브 영상 편집을 위한 프리미어 프로 (10만 구독자가 선택한 조블리의 영상 편집 강의)',
-        '시나공 총정리 컴퓨터활용능력 2급 필기 (핵심요약+기출문제+모의고사+암기프로그램+기출CBT+동영상강의,2020)',
-        '두근두근 파이썬 (쉽고! 재밌고! 흥미로운 코딩 맛!)',
-        '쉽게 풀어쓴 C언어 Express (Visual Studio 2017)',
-        '2020 해커스 전산회계 1급 이론+실기+기출문제 (동영상강의 83강 무료, 2020, 한국세무사회자격시험 대비)',
-        'Do it! 점프 투 파이썬',
-        '리팩토링 (코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 2판)'
-    ]
+function BookList({books}) {
+    //원래는 prpos.book 이렇게 들어가는 것..
+    //BookList({props}) 
+    //근데 지금은 하나밖에 없으니까 이렇게 받는다.
     return (
     <List component="nav" aria-label="main mailbox folders">
     {books.map(item => (
         <div>
         <ListItem button>
-            <ListItemText primary={item}/>
+            <ListItemText primary={item.title}/>
+            {/* reducer에서 데이터를 가져옴 */}
         </ListItem>
         <Divider/>
         </div>
@@ -34,3 +28,20 @@ export default function BookList() {
     </List>
     )
 }
+
+//바깥에서 들어오는 스테이트 들 중 어떤 것만 이 안에 넣어줄 지.. 
+// 전체 앱이 가지는 스테이트는 훨씬 더 복잡할 수 있는데 내가 쓰는 컴포넌트는
+// 그 중에 일부분만 건들일 수도 있기 때문에... books만 읽어오겠다는 뜻
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+      books: state.books
+    }
+}
+
+export default connect(
+    mapStateToProps
+  )(BookList)
+
+  //우리가 만든 BookList라는 컴포넌트 밖에서 커네팅을 시킨 컴포넌트를 만든 것
+  //커네팅을 시킨 컴포넌트는 글로벌에 있는 리덕스 스토어에 있는 스테이트 중에 books만 잡아서
+  //this.props.에 books에다 넣어주는 것이다. 
