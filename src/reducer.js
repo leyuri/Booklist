@@ -2,12 +2,14 @@ const initialState = {
     books: [
     {
     title: 'CODE', subtitle: '하드웨어와 소프트웨어에 숨어 있는 언어',
-    likes: 0
+    img: 'http://image.kyobobook.co.kr/images/book/xlarge/253/x9788966261253.jpg',
+    likes: 200
     },
     {
     title: '혼자 공부하는 파이썬',
     subtitle: '파이썬 최신 버전 반영',
-    likes: 0
+    img: 'http://image.kyobobook.co.kr/images/book/xlarge/882/x9791162241882.jpg',
+    likes: 80
     },
     {
     title: '유튜브 영상 편집을 위한 프리미어 프로',
@@ -42,6 +44,7 @@ const initialState = {
 ],
 seleted: undefined
 };
+initialState.selected = initialState.books[0];
 
 function reducer(state = initialState, action) {
     switch(action.type) {

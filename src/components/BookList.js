@@ -8,6 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import Badge from '@material-ui/core/Badge';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 function BookList({books}) {
     //원래는 prpos.book 이렇게 들어가는 것..
@@ -18,8 +20,13 @@ function BookList({books}) {
     {books.map(item => (
         <div>
         <ListItem button>
-            <ListItemText primary={item.title}/>
-            {/* reducer에서 데이터를 가져옴 */}
+            <ListItemText
+            primary={item.title}
+            secondary={item.subtitle}
+            />
+        <Badge badgeContent={item.likes} color="secondary">
+            <FavoriteIcon style={{color: 'pink'}}/>
+        </Badge>
         </ListItem>
         <Divider/>
         </div>
@@ -40,7 +47,7 @@ const mapStateToProps = (state /*, ownProps*/) => {
 
 export default connect(
     mapStateToProps
-  )(BookList)
+)(BookList)
 
   //우리가 만든 BookList라는 컴포넌트 밖에서 커네팅을 시킨 컴포넌트를 만든 것
   //커네팅을 시킨 컴포넌트는 글로벌에 있는 리덕스 스토어에 있는 스테이트 중에 books만 잡아서
