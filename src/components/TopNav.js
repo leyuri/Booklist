@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import { addNewBook } from '../actions';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -32,7 +34,7 @@ function TopNav({dispatch}) {
             <Typography variant="h6" className={classes.title}>
               BookList
             </Typography>
-            <Button color="inherit" onClick={() => dispatch({type: 'BOOK_ADD'})}>Add</Button>
+            <Button color="inherit" onClick={() => addNewBook()}>Add</Button>
           </Toolbar>
         </AppBar>
       </div>
