@@ -11,15 +11,22 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 import Badge from '@material-ui/core/Badge';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-function BookList({books}) {
+function BookList({books, dispatch}) {
     //원래는 prpos.book 이렇게 들어가는 것..
     //BookList({props}) 
     //근데 지금은 하나밖에 없으니까 이렇게 받는다.
     return (
     <List component="nav" aria-label="main mailbox folders">
     {books.map(item => (
-        <div>
-        <ListItem button>
+        <div key={item.title}>
+        <ListItem button onClick={()=>{
+            console.log("Clicked",item);
+            console.log(dispatch);
+            dispatch({type: 'BOOK_SELECT', payload: item});
+            // alert(item.title);
+            // dispatch시켜서 액션을 내보내면 그 액션이 리듀서를 타고 돌아서 스테이트를 바꾸고
+            // 그 바꾼 스테이트에 영향을 받는 애들만 새로 그려지는 것이다. (리랜더)
+        }}>
             <ListItemText
             primary={item.title}
             secondary={item.subtitle}

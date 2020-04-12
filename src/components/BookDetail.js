@@ -10,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+// import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
 
 function BookDetail({book}) {
   const classes = useStyles();
+  if (!book) {
+      return (
+        <Alert severity="warning">No book selected.</Alert>
+      )
+  }
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -33,7 +40,7 @@ function BookDetail({book}) {
       />
       <CardMedia
         className={classes.media}
-        image={book.image}
+        image={book.img}
       />
 
       <CardActions disableSpacing>
