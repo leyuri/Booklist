@@ -42,7 +42,7 @@ const initialState = {
     likes: 0
     }
 ],
-seleted: undefined
+selected: undefined
 };
 // initialState.selected = initialState.books[0];
 
@@ -65,6 +65,15 @@ function reducer(state = initialState, action) {
             return {
                 books: newBooks,
                 selected: state.selected
+            }
+        case 'BOOK_ADD':
+            return {
+                books: state.books.concat({ 
+                    title: `Book ${Math.floor(Math.random() * 1000)}`,
+                    subtitle: `subtitle ${Math.floor(Math.random() * 1000)}`,
+                    likes: 0
+            }),
+            selected: state.selected
             }
         default:
             return state;
