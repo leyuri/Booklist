@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function TopNav({dispatch}) {
+function TopNav({addNewBook}) {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -35,13 +35,23 @@ function TopNav({dispatch}) {
               BookList
             </Typography>
             <Button color="inherit" onClick={() => addNewBook()}>Add</Button>
+            {/* 여기서 그냥 호출하면 자동으로 디스패치 됨 */}
           </Toolbar>
         </AppBar>
       </div>
     )
 }
 
+    //프롭스 안에 디스패치는 더이상 없다. 그 대신에 addNewBook가 들어가 있음
+    //function TopNav({addNewBook}) {
+function mapDispatchToProps(dispatch) {
+  return {
+    // dispatching plain actions
+    addNewBook: () => dispatch(addNewBook()),
+  }
+}
 
-export default connect(
+
+export default connect(null, mapDispatchToProps
 
 )(TopNav)
