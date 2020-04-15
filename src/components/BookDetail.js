@@ -11,6 +11,10 @@ import ShareIcon from '@material-ui/icons/Share';
 // import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
+
+import { likeBook } from '../actions';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // maxWidth: 345,
@@ -23,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BookDetail({book, dispatch}) {
+function BookDetail({book, likeBook}) {
   const classes = useStyles();
   if (!book) {
       return (
@@ -45,14 +49,7 @@ function BookDetail({book, dispatch}) {
         )
       }
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick= {
-            () => {
-                dispatch({
-                    type: 'BOOK_LIKE',
-                    title: book.title
-                })
-            }
-        }>
+        <IconButton aria-label="add to favorites" onClick= {() => { likeBook(book)}}>
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="share">
@@ -71,5 +68,5 @@ const mapStateToProps = (state /*, ownProps*/) => {
 }
 
 export default connect(
-    mapStateToProps
+    mapStateToProps, { likeBook }
 )(BookDetail)

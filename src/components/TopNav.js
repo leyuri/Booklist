@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -43,15 +42,8 @@ function TopNav({addNewBook}) {
     )
 }
 
-    //프롭스 안에 디스패치는 더이상 없다. 그 대신에 addNewBook가 들어가 있음
-    //function TopNav({addNewBook}) {
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addNewBook}, dispatch)
-  // addNewBook라는 액션 크레이터를 디스패치까지 해주는 것을 다시 addNewBook라는 
-  // 이름으로 리턴해주는 것이다.
-}
 
 
-export default connect(null, mapDispatchToProps
-
-)(TopNav)
+export default connect(null, { addNewBook})(TopNav)
+//이 안에 있는 오브젝트를 갖고 디스패치를 붙여서 바인드액션크레이터를 붙여서 끝내준다.
+//심플한 방법...세가지 방법이 있음!

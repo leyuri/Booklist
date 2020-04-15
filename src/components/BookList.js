@@ -7,7 +7,9 @@ import Divider from '@material-ui/core/Divider';
 import Badge from '@material-ui/core/Badge';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-function BookList({books, dispatch}) {
+import { selectBook } from '../actions';
+
+function BookList({books, selectBook}) {
     //원래는 prpos.book 이렇게 들어가는 것..
     //BookList({props}) 
     //근데 지금은 하나밖에 없으니까 이렇게 받는다.
@@ -15,14 +17,7 @@ function BookList({books, dispatch}) {
     <List component="nav" aria-label="main mailbox folders">
     {books.map(item => (
         <div key={item.title}>
-        <ListItem button onClick={()=>{
-            console.log("Clicked",item);
-            console.log(dispatch);
-            dispatch({type: 'BOOK_SELECT', payload: item});
-            // alert(item.title);
-            // dispatch시켜서 액션을 내보내면 그 액션이 리듀서를 타고 돌아서 스테이트를 바꾸고
-            // 그 바꾼 스테이트에 영향을 받는 애들만 새로 그려지는 것이다. (리랜더)
-        }}>
+        <ListItem button onClick={()=>{ selectBook(item) }}>
             <ListItemText
             primary={item.title}
             secondary={item.subtitle}
@@ -49,7 +44,7 @@ const mapStateToProps = (state /*, ownProps*/) => {
 }
 
 export default connect(
-    mapStateToProps
+    mapStateToProps, { selectBook }
 )(BookList)
 
   //우리가 만든 BookList라는 컴포넌트 밖에서 커네팅을 시킨 컴포넌트를 만든 것
