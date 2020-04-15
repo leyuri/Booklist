@@ -1,3 +1,5 @@
+import produce from "immer"
+
 const initialState = {
     books: [
     {
@@ -46,39 +48,53 @@ selected: undefined
 };
 // initialState.selected = initialState.books[0];
 
-function reducer(state = initialState, action) {
+const reducer = produce((state, action) => {
     console.log("ACTION=",action);
     switch(action.type) {
 
         case 'BOOK_SELECT':
-            return {
-                books: state.books,
-                selected: action.payload
-            }
+            state.selected = action.payload;
+            break;
+            // return {
+            //     books: state.books,
+            //     selected: action.payload
+            // }
         case 'BOOK_LIKE':
-            const newBooks = state.books.map((book) => {
-                if(book.title === action.title) {
-                    book.likes += 1;
+            state.books.forEach((book) => {
+            if (book.title === action.title) {
+                book.likes += 1;
                 }
-                return book;
-            })
-            return {
-                books: newBooks,
-                selected: state.selected
-            }
+            });
+            break;
+            // const newBooks = state.books.map((book) => {
+            //     if(book.title === action.title) {
+            //         book.likes += 1;
+            //     }
+            //     return book;
+            // })
+            // return {
+            //     books: newBooks,
+            //     selected: state.selected
+            // }
         case 'BOOK_ADD':
-            return {
-                books: state.books.concat({ 
-                    title: `Book ${Math.floor(Math.random() * 1000)}`,
-                    subtitle: `subtitle ${Math.floor(Math.random() * 1000)}`,
-                    likes: 0
-            }),
-            selected: state.selected
-            }
+            state.books.push({
+                title: `Book ${Math.floor(Math.random() * 1000)}`,
+                subtitle: `subtitle ${Math.floor(Math.random() * 1000)}`,
+                likes: 0
+            });
+            break;
+            // return {
+            //     books: state.books.concat({ 
+            //         title: `Book ${Math.floor(Math.random() * 1000)}`,
+            //         subtitle: `subtitle ${Math.floor(Math.random() * 1000)}`,
+            //         likes: 0
+            // }),
+            // selected: state.selected
+            // }
         default:
             return state;
     }
-}
+}, initialState);
 
 
 export default reducer;
